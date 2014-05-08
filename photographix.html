@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<!--
+  Theme: Photographix
+  by @sanographix
+  http://www.sanographix.net
+  (c) 2014 Showkaku Sano
+-->
+
+<html prefix="og: http://ogp.me/ns#">
+<head>
+
+  <meta name="if:Enable Hatena Star" content="1" />
+  <meta name="if:Enable Like Button" content="1" />
+  <meta name="if:Enable Tweet Button" content="1" />
+  <meta name="if:Enable Plus1 Button" content="1" />
+  <meta name="if:Enable Hatena Bookmark Button" content="1" />
+  <meta name="if:Enable Pocket Button" content="1" />
+
+  <title>{block:PostTitle}{PostTitle} - {/block:PostTitle}{Title}</title>
+
+  <meta charset="UTF-8">
+  {block:Description}
+    <meta name="description" content="{MetaDescription}" />
+  {/block:Description}
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="{Favicon}">
+  <link rel="alternate" type="application/rss+xml" href="{RSS}">
+  <link rel="apple-touch-icon" href="{PortraitURL-128}">
+
+  <!-- OGP -->
+  <meta property="og:title" content="{block:PostTitle}{PostTitle} - {/block:PostTitle}{Title}" />
+  <meta property="og:type" content="article" />
+  <!-- Twitter tags -->
+  <meta name="twitter:image" content="{PortraitURL-128}" />
+  <!-- photo だったら og-image は photoURL にする -->
+  {block:PermalinkPage}
+    {block:Posts}
+      {block:Photo}
+        <meta property="og:image" content="{PhotoURL-HighRes}" />
+      {/block:Photo}
+      {block:Photoset}
+        {block:Photos}
+        <meta property="og:image" content="{PhotoURL-HighRes}" />
+        {/block:Photos}
+      {/block:Photoset}
+    {/block:Posts}
+  {/block:PermalinkPage}
+  <meta property="og:site_name" content="{Title}" />
+  {block:Description}
+    <meta property="og:description" content="{MetaDescription}">
+  {/block:Description}
+  {block:IfGoogleAuthor}
+    <link rel="author" href="{text:Google Author}" />
+  {/block:IfGoogleAuthor}
+  {block:IndexPage}
+    <link rel="canonical" href="{BlogURL}"/>
+    <meta property="og:url" content="{BlogURL}" />
+  {/block:IndexPage}
+  {block:PermalinkPage}
+    <link rel="canonical" href="{Permalink}"/>
+    <meta property="og:url" content="{Permalink}" />
+  {/block:PermalinkPage}
+
+  <link href="https://dl.dropboxusercontent.com/u/282961/photographix-v2/css/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
+
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <script type="text/javascript" src="//use.typekit.net/wet4crn.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-10275024-4', 'sanographix.net');
+    ga('send', 'pageview');
+
+  </script>
+  <!-- END Google Analytics -->
+
+</head>
+<body class="{block:IndexPage}page-index{/block:IndexPage}{block:PermalinkPage}page-permalink page-{PostID}{/block:PermalinkPage}">
+
+  <style>
+  {CustomCSS}
+  </style>
+
+  <div id="container">
+
+    <header id="header">
+      <div class="blog-title-wrapper">
+        <h1 class="blog-title">
+          <a href="/">{Title}</a>
+        </h1>
+        {block:Description}
+          <h2 class="blog-description">{Description}</h2>
+        {/block:Description}
+      </div>
+
+      <nav class="nav">
+        <ul>
+          {block:HasPages}
+            {block:Pages}
+            <li>
+              <a href="{URL}">{Label}</a>
+            </li>
+            {/block:Pages}
+          {/block:HasPages}
+          <li>
+            <a href="/archive">Archive</a>
+          </li>
+        </ul>
+      </nav>
+
+    </header>
+
+    <div id="main" class="autopagerize_page_element" role="main">
+
+      {block:TagPage}
+          <h2 class="tagged">Posts tagged "{Tag}"</h2>
+      {/block:TagPage}
+
+      <!-- 投稿 -->
+      {block:Posts}
+        <article class="post {TagsAsClasses} {PostType}">
+
+          <!-- post: テキスト -->
+          {block:Text}
+            <header class="entry-header">
+              {block:Title}
+                <h1 class="entry-title"><a href="{Permalink}">{Title}</a></h1>
+              {/block:Title}
+            </header>
+            <div class="entry-content">
+              {Body}
+            </div>
+          {/block:Text}
+
+          <!-- post: 画像 -->
+          {block:Photo}
+            <div class="entry-content">
+              {block:IndexPage}
+                <a href="{Permalink}">
+                  <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/>
+                </a>
+              {/block:IndexPage}
+              {block:PermalinkPage}
+                <a href="{PhotoURL-HighRes}">
+                  <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/>
+                </a>
+              {/block:PermalinkPage}
+            </div>
+          {/block:Photo}
+
+          <!-- post: フォトセット -->
+          {block:Photoset}
+            <div class="entry-content">
+              {block:Photos}
+                <a href="{PhotoURL-HighRes}">
+                  <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/>
+                </a>
+              {/block:Photos}
+            </div>
+          {/block:Photoset}
+
+          <!-- indexページのdetailリンク -->
+          {block:IndexPage}
+            <div class="index-meta">
+
+              {block:Date}
+                <div class="date">
+                  <a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>
+                </div>
+              {/block:Date}
+
+              <a href="{Permalink}" class="permalink">See details</a>
+            </div>
+          {/block:IndexPage}
+
+          <!-- パーマリンクのメタ情報 -->
+          {block:PermalinkPage}
+            <aside class="entry-footer">
+
+              <div class="entry-footer-left">
+
+                {block:Photo}
+                  {block:Caption}
+                    <div class="caption section">
+                      <h3>Description</h3>
+                      {Caption}
+                    </div>
+                  {/block:Caption}
+                {/block:Photo}
+                {block:Photoset}
+                  {block:Caption}
+                    <div class="caption section">
+                      <h3>Description</h3>
+                      {Caption}
+                    </div>
+                  {/block:Caption}
+                {/block:Photoset}
+
+                <!-- Content Source -->
+                {block:ContentSource}
+                  <div class="cont content_source section">
+                    <h3>Source</h3>
+                    <a href="{SourceURL}">
+                      {lang:Source}:
+                      {block:SourceLogo}
+                        <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                      {/block:SourceLogo}
+                      {block:NoSourceLogo}
+                          {SourceTitle}
+                      {/block:NoSourceLogo}
+                    </a>
+                  </div>
+                {/block:ContentSource}
+
+                {block:HasTags}
+                  <div class="meta-elements hastags section">
+                    <h3>Tags</h3>
+                    {block:Tags}
+                      <a href="{TagURL}">#{Tag}</a>
+                    {/block:Tags}
+                  </div>
+                {/block:HasTags}
+
+                <div class="related section">
+                  <h3>Recent Posts</h3>
+                  <div id="related">
+                  </div>
+                </div>
+
+                <div id="pager">
+                  <a href="/" class="btn">Back</a>
+                </div>
+
+              </div>
+
+              <div class="entry-footer-right">
+
+                <!-- 固定ページでは出さない -->
+                {block:Date}
+
+                  <ul class="like_and_reblog_buttons section">
+                    <li>{ReblogButton size="22"}</li>
+                    <li>{LikeButton size="22"}</li>
+                  </ul>
+
+                  <div class="download section">
+                    <h3>Download</h3>
+                    <a href="{PhotoURL-HighRes}" class="btn btn-primary btn-large">Download</a>
+                    <p class="notice"><small>This photo licensed under the Creative Commons Attribution 4.0 License. You can use it freely for all your personal and commercial work.</small></p>
+                  </div>
+
+                  {block:Exif}
+                    <div class="exif section">
+                      <h3>Photo Details</h3>
+                      <table><tbody>
+                        {block:Camera}
+                          <tr>
+                            <th>Camera</th>
+                            <td>{Camera}</td>
+                          </tr>
+                        {/block:Camera}
+                        {block:Aperture}
+                        <tr>
+                          <th>Aperture</th>
+                          <td>{Aperture}</td>
+                        </tr>
+                        {/block:Aperture}
+                        {block:Exposure}
+                        <tr>
+                          <th>Exposure</th>
+                          <td>{Exposure}</td>
+                        </tr>
+                        {/block:Exposure}
+                        {block:FocalLength}
+                        <tr>
+                          <th>Focal length</th>
+                          <td>{FocalLength}</td>
+                        </tr>
+                        {/block:FocalLength}
+                        <tr>
+                          <th>License</th>
+                          <td><a href="http://creativecommons.org/licenses/by/4.0/" rel="license"><img alt="クリエイティブ・コモンズ・ライセンス" src="http://i.creativecommons.org/l/by/4.0/88x31.png" style="border-width: 0;" /></a></td>
+                        </tr>
+                      </tbody></table>
+                    </div>
+                  {/block:Exif}
+
+                  <div class="date section">
+                    <h3>Published</h3>
+                    <a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>
+                  </div>
+
+
+                  {block:PostNotes}
+                    <h3 class="notecount-header">{NoteCount} Notes</h3>
+                    <div class="notecontainer section">{PostNotes}</div>
+                  {/block:PostNotes}
+
+                {/block:Date}
+
+              </div>
+            </aside>
+
+          {/block:PermalinkPage}
+
+        </article>
+      {/block:Posts}
+    </div>
+
+    <!-- ページごとのページャ -->
+    {block:Pagination}
+      <div class="pagenation pagenation-index">
+        {block:PreviousPage}
+          <a href="{PreviousPage}">Prev</a>
+        {/block:PreviousPage}
+        {block:JumpPagination length="5"}
+          {block:CurrentPage}<span class="current-page">{PageNumber}</span>{/block:CurrentPage}
+          {block:JumpPage}<a class="jump-page" href="{URL}">{PageNumber}</a>{/block:JumpPage}
+        {/block:JumpPagination}
+        {block:NextPage}
+          <a href="{NextPage}" class="next" rel="next">Next</a>
+        {/block:NextPage}
+      </div>
+    {/block:Pagination}
+
+    <footer id="footer">
+      <span class="copyright">
+        {CopyrightYears} {Title}
+      </span>
+      by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br/>
+      All photos are licensed under the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 License</a>.
+    </footer>
+
+  </div>
+
+  <script src="//dl.dropboxusercontent.com/u/282961/photographix-v2/js/photographix-js.min.js" charset="utf-8"></script>
+
+  <script>
+    // 最近の記事出す
+    $(function(){
+      $("#related").jq_tumblrPostList({
+        api_key:"Z8OAGgeUyNQUxnjJuKBF5pzZ54xSGAlBakWrqBoz7LhZOgIvnx",
+        domain: location.host, //取得先となるTumblrサイトのドメイン
+        limit:5 //記事の数
+      });
+    });
+  </script>
+
+  {block:IfEnableHatenaStar}
+    <script type="text/javascript" src="http://s.hatena.ne.jp/js/HatenaStar.js"></script>
+    <script type="text/javascript">
+      Hatena.Star.Token = '{text:Hatena Star Token}';
+    </script>
+    <script type="text/javascript">
+      Hatena.Star.SiteConfig = {
+        entryNodes: {
+          'article.post': {
+            uri: '.entry-title a',
+            title: 'document.title',
+            container: 'div.meta'
+          }
+        }
+      };
+    </script>
+    <script type="text/javascript">
+      Hatena.Star.EntryLoader.headerTagAndClassName = ['div','date'];
+    </script>
+  {/block:IfEnableHatenaStar}
+
+</body>
+</html>
