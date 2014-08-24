@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!--
-  Theme: Photographix v2
+  Theme: Photographix v3
   by @sanographix
   http://www.sanographix.net
   (c) 2014 Showkaku Sano
@@ -17,7 +17,8 @@
   <meta name="if:Enable Hatena Bookmark Button" content="1" />
   <meta name="if:Enable Pocket Button" content="1" />
 
-  <title>{block:PostTitle}{PostTitle} - {/block:PostTitle}{Title}</title>
+  <title>{block:PermalinkPage}{block:Posts}{block:HasTags}{block:Tags}#{Tag} {/block:Tags} - {/block:HasTags}{/block:Posts}{/block:PermalinkPage}
+  {block:PostTitle}{PostTitle} - {/block:PostTitle}Photographix - 京都写真素材</title>
 
   <meta charset="UTF-8">
   {block:Description}
@@ -29,7 +30,7 @@
   <link rel="apple-touch-icon" href="{PortraitURL-128}">
 
   <!-- OGP -->
-  <meta property="og:title" content="{block:PostTitle}{PostTitle} - {/block:PostTitle}{Title}" />
+  <meta property="og:title" content="{block:PostTitle}{PostTitle} - {/block:PostTitle}Photographix - 京都写真素材" />
   <meta property="og:type" content="article" />
   <!-- Twitter tags -->
   <meta name="twitter:image" content="{PortraitURL-128}" />
@@ -46,7 +47,7 @@
       {/block:Photoset}
     {/block:Posts}
   {/block:PermalinkPage}
-  <meta property="og:site_name" content="{Title}" />
+  <meta property="og:site_name" content="Photographix - 京都写真素材" />
   {block:Description}
     <meta property="og:description" content="{MetaDescription}">
   {/block:Description}
@@ -62,7 +63,8 @@
     <meta property="og:url" content="{Permalink}" />
   {/block:PermalinkPage}
 
-  <link href="http://sanographix.github.io/public/tumblr/photographix/v2/css/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
+  <link href="//sanographix.github.io/public/tumblr/photographix/v3/css/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,6 +81,7 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-10275024-4', 'sanographix.net');
+    ga('require', 'displayfeatures');
     ga('send', 'pageview');
 
   </script>
@@ -176,6 +179,10 @@
               {block:Date}
                 <div class="date">
                   <a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>
+                  {block:NoteCount}
+                    <a href="{Permalink}">{NoteCount} Notes</a>
+                  {/block:NoteCount}
+                  <a href="{PhotoURL-HighRes}">Download</a>
                 </div>
               {/block:Date}
 
@@ -248,21 +255,18 @@
                 <!-- 固定ページでは出さない -->
                 {block:Date}
 
-                  <ul class="like_and_reblog_buttons section">
-                    <li>{ReblogButton size="22"}</li>
-                    <li>{LikeButton size="22"}</li>
-                  </ul>
-
-                  <div class="download section">
-                    <h3>Download</h3>
-                    <a href="{PhotoURL-HighRes}" class="btn btn-primary btn-large">Download</a>
-                    <p class="notice"><small>This photo licensed under the Creative Commons Attribution 4.0 License. You can use it freely for all your personal and commercial work.</small></p>
+                  <div class="section">
+                    <ul class="like_and_reblog_buttons">
+                      <li>{ReblogButton size="22"}</li>
+                      <li>{LikeButton size="22"}</li>
+                    </ul>
+                    <a href="{PhotoURL-HighRes}" class="btn btn-full">Download</a>
                   </div>
 
-                  {block:Exif}
-                    <div class="exif section">
-                      <h3>Photo Details</h3>
-                      <table><tbody>
+                  <div class="exif section">
+                    <h3>Photo Details</h3>
+                    <table><tbody>
+                      {block:Exif}
                         {block:Camera}
                           <tr>
                             <th>Camera</th>
@@ -270,36 +274,40 @@
                           </tr>
                         {/block:Camera}
                         {block:Aperture}
-                        <tr>
-                          <th>Aperture</th>
-                          <td>{Aperture}</td>
-                        </tr>
+                          <tr>
+                            <th>Aperture</th>
+                            <td>{Aperture}</td>
+                          </tr>
                         {/block:Aperture}
                         {block:Exposure}
-                        <tr>
-                          <th>Exposure</th>
-                          <td>{Exposure}</td>
-                        </tr>
+                          <tr>
+                            <th>Exposure</th>
+                            <td>{Exposure}</td>
+                          </tr>
                         {/block:Exposure}
                         {block:FocalLength}
-                        <tr>
-                          <th>Focal length</th>
-                          <td>{FocalLength}</td>
-                        </tr>
+                          <tr>
+                            <th>Focal length</th>
+                            <td>{FocalLength}</td>
+                          </tr>
                         {/block:FocalLength}
-                        <tr>
-                          <th>License</th>
-                          <td><a href="http://creativecommons.org/licenses/by/4.0/" rel="license"><img alt="クリエイティブ・コモンズ・ライセンス" src="http://i.creativecommons.org/l/by/4.0/88x31.png" style="border-width: 0;" /></a></td>
-                        </tr>
-                      </tbody></table>
-                    </div>
-                  {/block:Exif}
-
-                  <div class="date section">
-                    <h3>Published</h3>
-                    <a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>
+                      {/block:Exif}
+                      <tr>
+                        <th>License</th>
+                        <td><a href="http://creativecommons.org/licenses/by/4.0/" rel="license"><img alt="クリエイティブ・コモンズ・ライセンス" src="http://i.creativecommons.org/l/by/4.0/88x31.png" style="border-width: 0;" /></a></td>
+                      </tr>
+                    </tbody></table>
+                    <p class="notice"><small>This photo is licensed under the Creative Commons Attribution 4.0 License. You can use it freely for all your personal and commercial work.</small></p>
                   </div>
 
+                  <div class="published section">
+                    <h3>Published</h3>
+                    <a href="http://www.sanographix.net"><img src="https://ja.gravatar.com/userimage/28223209/398653a71e4840f015762a8caee4ed83.png?size=100" class="avatar"></a> Photo taken by <a href="http://www.sanographix.net">sanographix</a>
+                    <div class="date">
+                      <a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>
+                    </div>
+
+                  </div>
 
                   {block:PostNotes}
                     <h3 class="notecount-header">{NoteCount} Notes</h3>
@@ -337,13 +345,12 @@
       <span class="copyright">
         {CopyrightYears} {Title}
       </span>
-      by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br/>
-      All photos are licensed under the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 License</a>.
+      by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a>
     </footer>
 
   </div>
 
-  <script src="http://sanographix.github.io/public/tumblr/photographix/v2/js/photographix-js.min.js" charset="utf-8"></script>
+  <script src="//sanographix.github.io/public/tumblr/photographix/v3/js/scripts.min.js" charset="utf-8"></script>
 
   <script>
     // 最近の記事出す
@@ -351,7 +358,7 @@
       $("#related").jq_tumblrPostList({
         api_key:"Z8OAGgeUyNQUxnjJuKBF5pzZ54xSGAlBakWrqBoz7LhZOgIvnx",
         domain: location.host, //取得先となるTumblrサイトのドメイン
-        limit:5 //記事の数
+        limit:10 //記事の数
       });
     });
   </script>
