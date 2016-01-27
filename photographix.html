@@ -10,15 +10,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
 
-  <meta name="if:Enable Hatena Star" content="1" />
-  <meta name="if:Enable Like Button" content="1" />
-  <meta name="if:Enable Tweet Button" content="1" />
-  <meta name="if:Enable Plus1 Button" content="1" />
-  <meta name="if:Enable Hatena Bookmark Button" content="1" />
-  <meta name="if:Enable Pocket Button" content="1" />
-
-  <title>{block:PermalinkPage}{block:Posts}{block:HasTags}{block:Tags}#{Tag} {/block:Tags} - {/block:HasTags}{/block:Posts}{/block:PermalinkPage}
-  {block:PostTitle}{PostTitle} - {/block:PostTitle}Photographix - 京都写真素材</title>
+  <title>{block:PostSummary}{PostSummary} - {/block:PostSummary}京都の無料写真素材 | Photographix</title>
 
   <meta charset="UTF-8">
   {block:Description}
@@ -63,15 +55,12 @@
     <meta property="og:url" content="{Permalink}" />
   {/block:PermalinkPage}
 
-  <link href="//sanographix.github.io/public/tumblr/photographix/v3/css/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
+  <link href="http://static.tumblr.com/xlsgtjb/0M1o1is19/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
-  <script type="text/javascript" src="//use.typekit.net/wet4crn.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
   <!-- Google Analytics -->
   <script>
@@ -98,9 +87,9 @@
 
     <header id="header">
       <div class="blog-title-wrapper">
-        <h1 class="blog-title">
+        <h3 class="blog-title">
           <a href="/">{Title}</a>
-        </h1>
+        </h3>
         {block:Description}
           <h2 class="blog-description">{Description}</h2>
         {/block:Description}
@@ -350,7 +339,7 @@
 
   </div>
 
-  <script src="//sanographix.github.io/public/tumblr/photographix/v3/js/scripts.min.js" charset="utf-8"></script>
+  <script src="http://static.tumblr.com/xlsgtjb/OnCo1irag/scripts.min.js" charset="utf-8"></script>
 
   <script>
     // 最近の記事出す
@@ -362,27 +351,6 @@
       });
     });
   </script>
-
-  {block:IfEnableHatenaStar}
-    <script type="text/javascript" src="http://s.hatena.ne.jp/js/HatenaStar.js"></script>
-    <script type="text/javascript">
-      Hatena.Star.Token = '{text:Hatena Star Token}';
-    </script>
-    <script type="text/javascript">
-      Hatena.Star.SiteConfig = {
-        entryNodes: {
-          'article.post': {
-            uri: '.entry-title a',
-            title: 'document.title',
-            container: 'div.meta'
-          }
-        }
-      };
-    </script>
-    <script type="text/javascript">
-      Hatena.Star.EntryLoader.headerTagAndClassName = ['div','date'];
-    </script>
-  {/block:IfEnableHatenaStar}
 
 </body>
 </html>
