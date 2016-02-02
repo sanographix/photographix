@@ -10,7 +10,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
 
-  <title>{block:PostSummary}{PostSummary} - {/block:PostSummary}京都の無料写真素材 | Photographix</title>
+  <title>{block:PostSummary}{PostSummary} - {/block:PostSummary}京都フリー写真素材 | Photographix</title>
 
   <meta charset="UTF-8">
   {block:Description}
@@ -55,7 +55,7 @@
     <meta property="og:url" content="{Permalink}" />
   {/block:PermalinkPage}
 
-  <link href="http://static.tumblr.com/xlsgtjb/0M1o1is19/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
+  <link href="http://static.tumblr.com/xlsgtjb/Ormo1vkx4/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 
   <!--[if lt IE 9]>
@@ -85,17 +85,18 @@
 
   <div id="container">
 
-    <header id="header">
+    <header id="header" role="banner">
       <div class="blog-title-wrapper">
-        <h3 class="blog-title">
+        <h1 class="blog-title-sub">京都フリー写真素材</h1>
+        <div class="blog-title">
           <a href="/">{Title}</a>
-        </h3>
+        </div>
         {block:Description}
           <h2 class="blog-description">{Description}</h2>
         {/block:Description}
       </div>
 
-      <nav class="nav">
+      <nav class="nav"  role="navigation">
         <ul>
           {block:HasPages}
             {block:Pages}
@@ -104,11 +105,16 @@
             </li>
             {/block:Pages}
           {/block:HasPages}
-          <li>
-            <a href="/archive">Archive</a>
-          </li>
         </ul>
       </nav>
+
+      {block:IndexPage}
+        <h4 class="search-header">キーワードから探す</h4>
+        <form class="search-form" role="search" action="/search" method="get">
+          <input type="text" name="q" value="{SearchQuery}" class="search-input" value="" placeholder="紅葉" required=""/>
+          <input type="submit" value="Search" class="search-button" style="background-image:url('http://static.tumblr.com/xlsgtjb/9HCo1viut/search.png');"/>
+        </form>
+      {/block:IndexPage}
 
     </header>
 
@@ -120,7 +126,10 @@
 
       <!-- 投稿 -->
       {block:Posts}
-        <article class="post {TagsAsClasses} {PostType}">
+        <article class="post {TagsAsClasses} {PostType}
+        {block:IndexPage}post-index{/block:IndexPage}
+        {block:Odd}post-odd{/block:Odd}
+        ">
 
           <!-- post: テキスト -->
           {block:Text}
@@ -139,7 +148,7 @@
             <div class="entry-content">
               {block:IndexPage}
                 <a href="{Permalink}">
-                  <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/>
+                  <img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
                 </a>
               {/block:IndexPage}
               {block:PermalinkPage}
@@ -167,28 +176,28 @@
 
               {block:Date}
                 <div class="date">
-                  <a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>
                   {block:NoteCount}
                     <a href="{Permalink}">{NoteCount} Notes</a>
                   {/block:NoteCount}
-                  <a href="{PhotoURL-HighRes}">Download</a>
+                  {block:HasTags}
+                    {block:Tags}
+                      <a href="{TagURL}">#{Tag}</a>
+                    {/block:Tags}
+                  {/block:HasTags}
                 </div>
               {/block:Date}
-
-              <a href="{Permalink}" class="permalink">Photo details</a>
             </div>
           {/block:IndexPage}
 
           <!-- パーマリンクのメタ情報 -->
           {block:PermalinkPage}
-            <aside class="entry-footer">
+            <div class="entry-footer">
 
               <div class="entry-footer-left">
 
                 {block:Photo}
                   {block:Caption}
                     <div class="caption section">
-                      <h3>Description</h3>
                       {Caption}
                     </div>
                   {/block:Caption}
@@ -196,7 +205,6 @@
                 {block:Photoset}
                   {block:Caption}
                     <div class="caption section">
-                      <h3>Description</h3>
                       {Caption}
                     </div>
                   {/block:Caption}
@@ -219,19 +227,21 @@
                 {/block:ContentSource}
 
                 {block:HasTags}
-                  <div class="meta-elements hastags section">
+                  <footer class="meta-elements hastags section" role="contentinfo">
                     <h3>Tags</h3>
                     {block:Tags}
                       <a href="{TagURL}">#{Tag}</a>
                     {/block:Tags}
-                  </div>
+                  </footer>
                 {/block:HasTags}
 
-                <div class="related section">
-                  <h3>Recent Posts</h3>
-                  <div id="related">
+                {block:Date}
+                  <div class="related section">
+                    <h3>Recent Posts</h3>
+                    <div id="related">
+                    </div>
                   </div>
-                </div>
+                {/block:Date}
 
                 <div id="pager">
                   <a href="/" class="btn">Back</a>
@@ -239,7 +249,7 @@
 
               </div>
 
-              <div class="entry-footer-right">
+              <aside class="entry-footer-right">
 
                 <!-- 固定ページでは出さない -->
                 {block:Date}
@@ -249,7 +259,13 @@
                       <li>{ReblogButton size="22"}</li>
                       <li>{LikeButton size="22"}</li>
                     </ul>
-                    <a href="{PhotoURL-HighRes}" class="btn btn-full">Download</a>
+                  </div>
+
+                  <div class="section">
+                    <h3>Download</h3>
+                    <div class="notice p"><small>This photo is licensed under the Creative Commons Attribution 4.0 License. You can use it freely for all your personal and commercial work.</small></div>
+                    <div class="notice p"><small>クリエイティブ・コモンズ・ライセンスに基づき、クレジットを入れることを条件に無料で利用できます。ご利用前に必ず<a href="/terms">利用規約</a>をお読みください。</small></div>
+                    <a href="{PhotoURL-HighRes}" class="btn btn-full btn-primary">Download</a>
                   </div>
 
                   <div class="exif section">
@@ -283,10 +299,11 @@
                       {/block:Exif}
                       <tr>
                         <th>License</th>
-                        <td><a href="http://creativecommons.org/licenses/by/4.0/" rel="license"><img alt="クリエイティブ・コモンズ・ライセンス" src="http://i.creativecommons.org/l/by/4.0/88x31.png" style="border-width: 0;" /></a></td>
+                        <td><a href="http://creativecommons.org/licenses/by/4.0/" rel="license"><img alt="クリエイティブ・コモンズ・ライセンス" src="http://i.creativecommons.org/l/by/4.0/88x31.png" style="border-width: 0;" /></a><br/>
+                        <small><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">クリエイティブ・コモンズ 表示 4.0 国際 ライセンス</a>で提供されています。</small>
+                        </td>
                       </tr>
                     </tbody></table>
-                    <p class="notice"><small>This photo is licensed under the Creative Commons Attribution 4.0 License. You can use it freely for all your personal and commercial work.</small></p>
                   </div>
 
                   <div class="published section">
@@ -298,15 +315,10 @@
 
                   </div>
 
-                  {block:PostNotes}
-                    <h3 class="notecount-header">{NoteCount} Notes</h3>
-                    <div class="notecontainer section">{PostNotes}</div>
-                  {/block:PostNotes}
-
                 {/block:Date}
 
-              </div>
-            </aside>
+              </aside>
+            </div>
 
           {/block:PermalinkPage}
 
@@ -331,15 +343,26 @@
     {/block:Pagination}
 
     <footer id="footer">
-      <span class="copyright">
-        {CopyrightYears} {Title}
-      </span>
-      by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a>
+      <div class="footer-title">{Title}</div>
+      <p class="footer-description">京都の写真素材を無料でダウンロードしよう。
+        {block:PermalinkPage}
+          {block:Posts}
+            {block:HasTags}
+              <br>
+              {block:Tags}
+                <a href="{TagURL}">{Tag}</a>,
+              {/block:Tags}
+              など京都周辺で撮影したフリー写真素材を配布中。
+            {/block:HasTags}
+          {/block:Posts}
+        {/block:PermalinkPage}
+      </p>
+      <p class="copyright">{CopyrightYears} Photographix by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a></p>
     </footer>
 
   </div>
 
-  <script src="http://static.tumblr.com/xlsgtjb/OnCo1irag/scripts.min.js" charset="utf-8"></script>
+  <script src="http://static.tumblr.com/xlsgtjb/YdWo1o5fb/scripts.min.js" charset="utf-8"></script>
 
   <script>
     // 最近の記事出す

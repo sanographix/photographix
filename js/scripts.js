@@ -95,6 +95,14 @@
 })(jQuery);
 
 $(function(){
+
+    $('a').each(function() {
+      var a = this;
+      if (a.origin !== location.origin) {
+        $(a).attr('target', '_blank');
+      }
+    });
+
   $('#main').infinitescroll({
 
     navSelector  : ".pagenation-index",
