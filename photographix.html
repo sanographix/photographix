@@ -24,21 +24,10 @@
   <!-- OGP -->
   <meta property="og:title" content="{block:PostTitle}{PostTitle} - {/block:PostTitle}Photographix - 京都写真素材" />
   <meta property="og:type" content="article" />
-  <!-- Twitter tags -->
-  <meta name="twitter:image" content="{PortraitURL-128}" />
-  <!-- photo だったら og-image は photoURL にする -->
-  {block:PermalinkPage}
-    {block:Posts}
-      {block:Photo}
-        <meta property="og:image" content="{PhotoURL-HighRes}" />
-      {/block:Photo}
-      {block:Photoset}
-        {block:Photos}
-        <meta property="og:image" content="{PhotoURL-HighRes}" />
-        {/block:Photos}
-      {/block:Photoset}
-    {/block:Posts}
-  {/block:PermalinkPage}
+
+  <meta name="twitter:image" content="http://static.tumblr.com/xlsgtjb/FkZo1x7ge/og-image.jpg" />
+  <meta property="og:image" content="http://static.tumblr.com/xlsgtjb/FkZo1x7ge/og-image.jpg" />
+
   <meta property="og:site_name" content="Photographix - 京都写真素材" />
   {block:Description}
     <meta property="og:description" content="{MetaDescription}">
@@ -55,8 +44,7 @@
     <meta property="og:url" content="{Permalink}" />
   {/block:PermalinkPage}
 
-  <link href="http://static.tumblr.com/xlsgtjb/Ormo1vkx4/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+  <link href="http://static.tumblr.com/xlsgtjb/ruZo1xe7o/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
 
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -85,35 +73,50 @@
 
   <div id="container">
 
+    <nav class="nav"  role="navigation">
+      <ul>
+        {block:HasPages}
+          {block:Pages}
+          <li>
+            <a href="{URL}">{Label}</a>
+          </li>
+          {/block:Pages}
+        {/block:HasPages}
+      </ul>
+    </nav>
+
     <header id="header" role="banner">
       <div class="blog-title-wrapper">
         <h1 class="blog-title-sub">京都フリー写真素材</h1>
         <div class="blog-title">
-          <a href="/">{Title}</a>
+          <a href="/">
+            <span class="title-photo">PHOTO</span><span class="title-graphix">GRAPHIX</span>
+          </a>
         </div>
         {block:Description}
           <h2 class="blog-description">{Description}</h2>
         {/block:Description}
       </div>
 
-      <nav class="nav"  role="navigation">
-        <ul>
-          {block:HasPages}
-            {block:Pages}
-            <li>
-              <a href="{URL}">{Label}</a>
-            </li>
-            {/block:Pages}
-          {/block:HasPages}
-        </ul>
-      </nav>
-
       {block:IndexPage}
-        <h4 class="search-header">キーワードから探す</h4>
-        <form class="search-form" role="search" action="/search" method="get">
-          <input type="text" name="q" value="{SearchQuery}" class="search-input" value="" placeholder="紅葉" required=""/>
-          <input type="submit" value="Search" class="search-button" style="background-image:url('http://static.tumblr.com/xlsgtjb/9HCo1viut/search.png');"/>
-        </form>
+        <div class="search-form-wrapper">
+          <form class="search-form" role="search" action="/search" method="get">
+            <input type="text" name="q" value="{SearchQuery}" class="search-input" value="" placeholder="キーワードから探す" required=""/>
+            <input type="submit" value="Search" class="search-button" style="background-image:url('http://static.tumblr.com/xlsgtjb/9HCo1viut/search.png');"/>
+          </form>
+        </div>
+        <h4 class="search-header">探しやすそうなキーワード</h4>
+        <div class="search-tags-list">
+          <a href="http://photo.sanographix.net/search/紅葉" class="tag">紅葉</a>
+          <a href="http://photo.sanographix.net/search/日本庭園" class="tag">日本庭園</a>
+          <a href="http://photo.sanographix.net/search/枯山水" class="tag">枯山水</a>
+          <a href="http://photo.sanographix.net/search/寺" class="tag">寺</a>
+          <a href="http://photo.sanographix.net/search/神社" class="tag">神社</a>
+          <a href="http://photo.sanographix.net/search/池" class="tag">池</a>
+          <a href="http://photo.sanographix.net/search/雪" class="tag">雪</a>
+          <a href="http://photo.sanographix.net/search/川" class="tag">川</a>
+          <a href="http://photo.sanographix.net/search/苔" class="tag">苔</a>
+        </div>
       {/block:IndexPage}
 
     </header>
@@ -181,7 +184,7 @@
                   {/block:NoteCount}
                   {block:HasTags}
                     {block:Tags}
-                      <a href="{TagURL}">#{Tag}</a>
+                      <a href="{TagURL}" class="tag">{Tag}</a>
                     {/block:Tags}
                   {/block:HasTags}
                 </div>
@@ -230,7 +233,7 @@
                   <footer class="meta-elements hastags section" role="contentinfo">
                     <h3>Tags</h3>
                     {block:Tags}
-                      <a href="{TagURL}">#{Tag}</a>
+                      <a href="{TagURL}" class="tag">{Tag}</a>
                     {/block:Tags}
                   </footer>
                 {/block:HasTags}
@@ -263,9 +266,15 @@
 
                   <div class="section">
                     <h3>Download</h3>
-                    <div class="notice p"><small>This photo is licensed under the Creative Commons Attribution 4.0 License. You can use it freely for all your personal and commercial work.</small></div>
-                    <div class="notice p"><small>クリエイティブ・コモンズ・ライセンスに基づき、クレジットを入れることを条件に無料で利用できます。ご利用前に必ず<a href="/terms">利用規約</a>をお読みください。</small></div>
+                    <div class="notice p"><small>この写真は、クレジットを併記することを条件に無料で利用できます。ご利用前に必ず<a href="/terms">利用規約</a>をお読みください。</small></div>
+                    <h4>コピペ用クレジット（HTML）</h4>
+                    <textarea rows="2" class="textarea" onfocus="this.select();" readonly>&lt;a href=&quot;{ShortURL}&quot; target=&quot;_blank&quot;&gt;Photo by sanographix&lt;/a&gt;</textarea>
+
                     <a href="{PhotoURL-HighRes}" class="btn btn-full btn-primary">Download</a>
+
+                    <div class="notice p"><small>This photo is licensed under the Creative Commons Attribution 4.0 License. You can use it freely for all your personal and commercial work.</small></div>
+
+
                   </div>
 
                   <div class="exif section">
@@ -343,7 +352,9 @@
     {/block:Pagination}
 
     <footer id="footer">
-      <div class="footer-title">{Title}</div>
+      <div class="footer-title">
+        <span class="title-photo">PHOTO</span><span class="title-graphix">GRAPHIX</span>
+      </div>
       <p class="footer-description">京都の写真素材を無料でダウンロードしよう。
         {block:PermalinkPage}
           {block:Posts}
@@ -362,18 +373,7 @@
 
   </div>
 
-  <script src="http://static.tumblr.com/xlsgtjb/YdWo1o5fb/scripts.min.js" charset="utf-8"></script>
-
-  <script>
-    // 最近の記事出す
-    $(function(){
-      $("#related").jq_tumblrPostList({
-        api_key:"Z8OAGgeUyNQUxnjJuKBF5pzZ54xSGAlBakWrqBoz7LhZOgIvnx",
-        domain: location.host, //取得先となるTumblrサイトのドメイン
-        limit:10 //記事の数
-      });
-    });
-  </script>
+  <script src="http://static.tumblr.com/xlsgtjb/9WCo1xcek/scripts.min.js" charset="utf-8"></script>
 
 </body>
 </html>
