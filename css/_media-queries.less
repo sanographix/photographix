@@ -25,12 +25,14 @@
 
 }
 
-@media (max-width: 1320px) {
-
-#container {
-    width: 90%;
+@media (min-width: 1320px) {
+.page-permalink:not(.page-)  #container {
+    width: 1280px;
 }
-
+#related .photo {
+    width: 178px;
+    height: 118px;
+}
 }
 
 /*--------------------------------------------------------------
@@ -39,19 +41,37 @@
 
 --------------------------------------------------------------*/
 
-@media (min-width: 768px) and (max-width: 1040px) {
-
+@media (max-width: 1060px) {
+#container {
+    width: 720px;
+}
+.post-index {
+    .entry-content {
+        height: 230px;
+    }
+}
 .entry-footer-right {
     width: 300px;
 }
-
 .entry-footer-left {
     margin-right: -330px;
     &>* {
         margin-right: 330px;
     }
 }
-
+.post-index {
+    .entry-content {
+        &:hover {
+            img {
+                width: 370px;
+            }
+        }
+    }
+}
+#related .photo {
+    width: 193px;
+    height: 128px;
+}
 }
 
 /*--------------------------------------------------------------
@@ -65,20 +85,58 @@
 #container {
     width: 93.75%;
 }
-
+.nav {
+    font-size: 85%;
+}
+.search-form {
+    width: 100%;
+    font-size: 100%;
+}
+.search-input {
+    padding: .6em .5em;
+}
+.post-index {
+    width: auto;
+    float: none;
+    &.post-odd {
+        margin-right: auto;
+    }
+    .entry-content {
+        position: static;
+        height: auto;
+        overflow: visible;
+        img {
+            position: static;
+        }
+    }
+}
 #header {
     margin: 2em 0;
 }
 
 .blog-title {
-    font-size: 170%;
+    font-size: 200%;
 }
-
-.nav li {
+.blog-description {
     font-size: 80%;
-    margin-left: 1em;
 }
 
+.entry-content {
+    blockquote {
+        margin: 1.5em 0;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+.caption {
+    h1 {
+        font-size: 140%;
+    }
+    h2 {
+        font-size: 130%;
+    }
+}
 .entry-footer-right,
 .entry-footer-left {
     float: none;
@@ -96,6 +154,21 @@
     }
 }
 
+#related .photo {
+    width: 98px;
+    height: 98px;
+}
+
+.post-index {
+    .entry-content {
+        &:hover {
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
 }
 
 
@@ -106,7 +179,6 @@
 --------------------------------------------------------------*/
 
 @media (max-width: 480px) {
-
 #related .photo {
     width: 98px;
     height: 98px;
