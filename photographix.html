@@ -25,8 +25,29 @@
   <meta property="og:title" content="{block:PostTitle}{PostTitle} - {/block:PostTitle}Photographix - 京都写真素材" />
   <meta property="og:type" content="article" />
 
-  <meta name="twitter:image" content="http://static.tumblr.com/xlsgtjb/FkZo1x7ge/og-image.jpg" />
-  <meta property="og:image" content="http://static.tumblr.com/xlsgtjb/FkZo1x7ge/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@sanographix">
+  {block:IndexPage}
+    <meta name="twitter:image" content="http://static.tumblr.com/xlsgtjb/Vaao2eyud/og-image.jpg" />
+    <meta property="og:image" content="http://static.tumblr.com/xlsgtjb/Vaao2eyud/og-image.jpg" />
+  {/block:IndexPage}
+  {block:PermalinkPage}
+    {block:Posts}
+      {block:Text}
+        <meta name="twitter:image" content="http://static.tumblr.com/xlsgtjb/Vaao2eyud/og-image.jpg" />
+      {/block:Text}
+      {block:Photo}
+        <meta property="og:image" content="{PhotoURL-HighRes}" />
+        <meta name="twitter:image" content="{PhotoURL-HighRes}" />
+      {/block:Photo}
+      {block:Photoset}
+        {block:Photos}
+        <meta property="og:image" content="{PhotoURL-HighRes}" />
+        <meta name="twitter:image" content="{PhotoURL-HighRes}" />
+        {/block:Photos}
+      {/block:Photoset}
+    {/block:Posts}
+  {/block:PermalinkPage}
 
   <meta property="og:site_name" content="Photographix - 京都写真素材" />
   {block:Description}
@@ -44,7 +65,7 @@
     <meta property="og:url" content="{Permalink}" />
   {/block:PermalinkPage}
 
-  <link href="http://static.tumblr.com/xlsgtjb/ruZo1xe7o/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
+  <link href="http://static.tumblr.com/xlsgtjb/7R2o2ezp0/style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8"/>
 
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -231,23 +252,63 @@
 
                 {block:HasTags}
                   <footer class="meta-elements hastags section" role="contentinfo">
-                    <h3>Tags</h3>
+                    <h3>この写真につけられたタグ</h3>
                     {block:Tags}
                       <a href="{TagURL}" class="tag">{Tag}</a>
                     {/block:Tags}
                   </footer>
                 {/block:HasTags}
 
+                <!--
+                {block:HasTags}
+                  <style>
+                  .related-posts h5 span:not(:first-child) {
+                    display: none;
+                  }
+                  </style>
+                  <div class="related-posts">
+                    <h3>「{block:Tags}<span>{Tag},</span>{/block:Tags}」カテゴリの他の記事</h3>
+                    <script>
+                        (function() {
+                      var scripts = document.getElementsByTagName('script');
+                      var script = scripts[scripts.length-1];
+                      var key = 'Z8OAGgeUyNQUxnjJuKBF5pzZ54xSGAlBakWrqBoz7LhZOgIvnx';
+                        window[key] = (function(data) {
+                            var ul = document.createElement('ul');
+                            for (var i = 0; i < data.posts.length; i++) {
+                                if (data.posts[i]['url-with-slug'] === location.href) {
+                                    continue;
+                                }
+                                var li = document.createElement('li');
+                                var a = document.createElement('a');
+                                a.href = data.posts[i]['url-with-slug'];
+                                a[('innerText' in a)? 'innerText' : 'textContent'] = data.posts[i]['regular-title'];
+                                li.appendChild(a);
+                                ul.appendChild(li);
+                            }
+                            script.parentNode.replaceChild(ul, script);
+                            delete window[key];
+                        });
+                      var s = document.createElement('script');
+                      s.src = location.protocol + "//" + location.hostname + '/api/read/json?tagged=' + ('{block:Tags}{Tag},{/block:Tags}'.split(',')[0] || '') + '&type=photo&num=4&start=0&callback=' + key;
+                      document.head.appendChild(s);
+                    })();
+                    </script>
+                  </div>
+                {/block:HasTags}
+                -->
+
+
                 {block:Date}
                   <div class="related section">
-                    <h3>Recent Posts</h3>
+                    <h3>最近更新した写真</h3>
                     <div id="related">
                     </div>
                   </div>
                 {/block:Date}
 
                 <div id="pager">
-                  <a href="/" class="btn">Back</a>
+                  <a href="/" class="btn">トップページに戻る</a>
                 </div>
 
               </div>
@@ -331,6 +392,29 @@
 
           {/block:PermalinkPage}
 
+          {block:PermalinkPage}
+            <div class="permalink-search-form-wrapper">
+              <div class="search-form-wrapper">
+                <form class="search-form" role="search" action="/search" method="get">
+                  <input type="text" name="q" value="{SearchQuery}" class="search-input" value="" placeholder="キーワードから探す" required=""/>
+                  <input type="submit" value="Search" class="search-button" style="background-image:url('http://static.tumblr.com/xlsgtjb/9HCo1viut/search.png');"/>
+                </form>
+              </div>
+              <h4 class="search-header">探しやすそうなキーワード</h4>
+              <div class="search-tags-list">
+                <a href="http://photo.sanographix.net/search/紅葉" class="tag">紅葉</a>
+                <a href="http://photo.sanographix.net/search/日本庭園" class="tag">日本庭園</a>
+                <a href="http://photo.sanographix.net/search/枯山水" class="tag">枯山水</a>
+                <a href="http://photo.sanographix.net/search/寺" class="tag">寺</a>
+                <a href="http://photo.sanographix.net/search/神社" class="tag">神社</a>
+                <a href="http://photo.sanographix.net/search/池" class="tag">池</a>
+                <a href="http://photo.sanographix.net/search/雪" class="tag">雪</a>
+                <a href="http://photo.sanographix.net/search/川" class="tag">川</a>
+                <a href="http://photo.sanographix.net/search/苔" class="tag">苔</a>
+              </div>
+            </div>
+          {/block:PermalinkPage}
+
         </article>
       {/block:Posts}
     </div>
@@ -360,9 +444,11 @@
           {block:Posts}
             {block:HasTags}
               <br>
+              <span class="footer-description-line">
               {block:Tags}
-                <a href="{TagURL}">{Tag}</a>,
+              <span class="colon">, </span><a href="{TagURL}">{Tag}</a>
               {/block:Tags}
+              </span>
               など京都周辺で撮影したフリー写真素材を配布中。
             {/block:HasTags}
           {/block:Posts}
@@ -374,6 +460,22 @@
   </div>
 
   <script src="http://static.tumblr.com/xlsgtjb/9WCo1xcek/scripts.min.js" charset="utf-8"></script>
+
+  <script>
+      // 最近の投稿
+
+    function tumblr(resp) {
+        var posts = resp.posts;
+        $('#recent .loading').replaceWith('<ul/>');
+        $ul = $('#recent ul');
+        for (var i=0; i<posts.length; i++) {
+          var p = posts[i];
+                      var title = p['regular-title'] || p['link-text'] || null;
+          if (title)
+            $ul.append('<li><a href="'+p['url']+'">'+title+'</a></li>');
+        }
+    }
+  </script>
 
 </body>
 </html>
